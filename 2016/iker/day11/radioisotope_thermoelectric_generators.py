@@ -153,3 +153,10 @@ if __name__ == '__main__':
     building = Building(instructions)
 
     print('Part 1:', building.solve())
+
+    instructions[0] = instructions[0] + 'You also find and elerium generator, an elerium-compatible microchip' +\
+        'a dilithium generator and a dilithium-compatible microchip.'
+
+    building = Building(instructions)
+
+    print('Part 2:', building.solve())

@@ -50,27 +50,12 @@ What is the first value written that is larger than your puzzle input?
 """
 import math
 
-# def get_ring(point):
-#     numbers = 1
-#     ring = 0  # get the ring in which the number is
-#     while True:
-#         ring += 1
-#         numbers_in_ring = 4 * (ring*2 + 1)
-#         numbers += numbers_in_ring
-#         if point <= numbers:
-#             break
-#     return ring
 
-def get_side(point):
-    side = math.ceil(math.sqrt(point))
-    if side % 2 == 0:
-        side += 1
-    return side
-
-# def get_cardinals(ring):
-#     right = 4 * ((ring-1)*2 + 1) + ring * 2
-#     return right, right + (ring*2 + 1),  right + 2*(ring*2 + 1),  right + 3*(ring*2 + 1)
-#
+def get_side_size(point):
+    side_size = math.ceil(math.sqrt(point))
+    if side_size % 2 == 0:
+        side_size += 1
+    return side_size
 
 
 def get_displacement(point, ring):
@@ -84,11 +69,11 @@ def distance(point):
     if point == 1:
         return 0
     else:
-        side = get_side(point)
-        ring = (side - 1) // 2
-        rescaled = point - (side-2)**2
-        displacement = get_displacement(rescaled, ring)
-        return displacement + ring
+        side_size = get_side_size(point)
+        radius = (side_size - 1) // 2
+        rescaled = point - (side_size-2)**2
+        displacement = get_displacement(rescaled, radius)
+        return displacement + radius
 
 
 def test1():
@@ -102,6 +87,66 @@ def part1():
     print(distance(361527))
 
 
+def sing(x):
+    return 1 if x>=0 else -1
+
+
+class MemoryGrid:
+
+    def __init__(self, n):
+        self.memory = []
+        for i in range(n):
+            self.memory.append([0]*n)
+        self.n = n
+
+    @staticmethod
+    def next_pos(position):
+        x, y = position
+        ring = max(abs(x), abs(y))
+        if abs(x) == abs(y) == ring:
+            if x > 0:
+                return x -1 *sing(y), y
+            elif y > 0:
+                return x, y -1
+            else:
+                return x+1, y
+        elif abs(x) == ring:
+            return x, y + 1*sing(x)
+        else:
+            return x - 1*sing(y), y
+
+    def translate_pos(self, coordinates):
+        x, y = coordinates
+        return x+self.n//2, y+self.n//2
+
+    def sum_neighbours(self, pos):
+        x, y = pos
+        value = 0
+        for x_i in range(x-1, x+2):
+            for y_i in range(y-1, y+2):
+                x_prime, y_prime = self.translate_pos((x_i, y_i))
+                value += self.memory[y_prime][x_prime]
+        return value
+
+    def stress_test(self, maximum):
+        pos = (0, 0)
+        value = 1
+        x, y = self.translate_pos(pos)
+        self.memory[y][x] = value
+        while value < maximum:
+            pos = self.next_pos(pos)
+            value = self.sum_neighbours(pos)
+            x, y = self.translate_pos(pos)
+            self.memory[y][x] = value
+        return value
+
+
+def part2():
+    mem = MemoryGrid(20)
+    print(mem.stress_test(361527))
+
+
 if __name__ == '__main__':
     # test1()
-    part1()
+    # part1()
+    part2()

@@ -243,5 +243,5 @@ def part2():
 if __name__ == '__main__':
     # test1()
     # part1()
-    # test2()
-    part2()
+    test2()
+    # part2()

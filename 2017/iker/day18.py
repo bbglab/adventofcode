@@ -72,10 +72,6 @@ It should be noted that it would be equally valid for the programs to run at dif
 Once both of your programs have terminated (regardless of what caused them to do so), how many times did program 1 send a value?
 
 """
-import threading
-import collections
-
-import time
 
 
 def read():
@@ -202,7 +198,7 @@ class Register2(Register):
         self.sends += 1
 
     def recover(self, reg):
-        self.reg[reg] = self.read_queue.pop()
+        self.reg[reg] = self.read_queue.pop(0)
 
     def operate(self):
         """Return True if it is ended or blocked"""
@@ -216,14 +212,12 @@ class Register2(Register):
         self.pos += 1
         if self.pos < 0 or self.pos >= len(self.instructions):
             self.ended = True
-            return True
-        else:
-            return False
+        return False
 
 
 def dual(input):
-    d1 = collections.deque()
-    d2 = collections.deque()
+    d1 = []
+    d2 = []
     r0 = Register2(d1, d2, 0, input)
     r1 = Register2(d2, d1, 1, input)
 
@@ -243,5 +237,5 @@ def part2():
 if __name__ == '__main__':
     # test1()
     # part1()
-    test2()
-    # part2()
+    # test2()
+    part2()

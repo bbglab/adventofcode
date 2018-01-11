@@ -127,6 +127,7 @@ def part2():
     in_ = ','.join(list(map(str, read())))
     print(knot_hash2(list(range(0, 256)), in_))
 
+
 if __name__ == '__main__':
     # test1()
     # part1()

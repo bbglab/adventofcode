@@ -106,6 +106,7 @@ class Coprocessor:
             self.pos += 1
             if self.pos < 0 or self.pos >= len(self.instructions):
                 break
+            print(self.reg)
 
 
 def part1():
@@ -114,14 +115,67 @@ def part1():
     print(p.mul_counter)
 
 
+def isprime(value):
+    for i in range(2, value):
+        if (value % i) == 0:
+            return False
+    return True
+
+
+def count_primes(init, end, step):
+    count = 0
+    for i in range(init, end+1, step):
+        if isprime(i):
+            count += 1
+    return count
+
+
 def part2():
-    p = Coprocessor()
-    init_instruction = 'set', ('a', 1)
-    p.operate([init_instruction])
-    p.operate(parse(read()))
-    print(p.reg['h'])
+   """
+   After optimizing the code it results that
+   """
+   b = 106500
+   c = 123500
+   h = (c-b)/17  # each loop b increases 17 until it matches c
+   h += 1  # there is an extra loop when b == c ??
+   h -= count_primes(b, c, 17)  # on primes, f is set to 0 and h not increased
+   print(int(h))
+
+
+""" Code translated to Python
+b = 106500
+c = 123500
+h = 0
+
+g = 1  # added to enter first loop
+
+while True:
+    f = 1
+    d = 2
+    while g != 0:
+        e = 2
+        while g != 0:
+            g = d
+            g *= e
+            g -= b
+            if g == 0:
+                f = 0
+            e += 1
+            g = e
+            g -= b
+        d += 1
+        g = d
+        g -= b
+    if f != 0:
+        h += 1
+    g = b
+    g -= c
+    if g == 0:
+        break
+    b += 17
+"""
 
 
 if __name__ == '__main__':
-    part1()
-    # part2()
+    # part1()
+    part2()

@@ -87,6 +87,11 @@ Thus, after 2 iterations, the grid contains 12 pixels that are on.
 
 How many pixels stay on after 5 iterations?
 
+
+--- Part Two ---
+
+How many pixels stay on after 18 iterations?
+
 """
 
 init_pattern = """.#.
@@ -183,27 +188,25 @@ def enhance(pattern, rules):
 
 def operate(state, rules):
     length = len(state)
-    line = 0
+
     if len(state) % 2 == 0:
-        size = length // 2
-        output = [''] * 3 * size
-        for i in range(0, length, 2):
-            for j in range(0, length, 2):
-                pattern = '/'.join([state[i][j:j+2], state[i+1][j:j+2]])
-                altered = enhance(pattern, rules)
-                for k, v in enumerate(altered.split('/')):
-                    output[line+k] += v
-            line += 3
+        split_size = 2
     else:
-        size = length // 3
-        output = [''] * 4*size
-        for i in range(0, length, 3):
-            for j in range(0, length, 3):
-                pattern = '/'.join([state[i][j:j+3], state[i+1][j:j+3], state[i+2][j:j+3]])
-                altered = enhance(pattern, rules)
-                for k, v in enumerate(altered.split('/')):
-                    output[line+k] += v
-            line += 4
+        split_size = 3
+
+    line = 0
+    size = length // split_size
+    output = [''] * (split_size+1) * size
+    for i in range(0, length, split_size):
+        for j in range(0, length, split_size):
+            pattern_items = []
+            for k in range(split_size):
+                pattern_items.append(state[i+k][j:j+split_size])
+            pattern = '/'.join(pattern_items)
+            altered = enhance(pattern, rules)
+            for k, v in enumerate(altered.split('/')):
+                output[line+k] += v
+        line += (split_size+1)
     return output
 
 
@@ -228,6 +231,13 @@ def part1():
     print(count_pixels_on(pattern))
 
 
+def part2():
+    pattern = init_pattern
+    for _ in range(18):
+        pattern = operate(pattern, parse(read()))
+    print(count_pixels_on(pattern))
+
 if __name__ == '__main__':
     # test1()
-    part1()
+    # part1()
+    part2()

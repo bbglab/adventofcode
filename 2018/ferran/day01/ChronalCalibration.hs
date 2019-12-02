@@ -11,9 +11,8 @@ parseLines = fmap lines . readFile
 
 strToInt :: [Char] -> Int
 strToInt x = case x of
-             ('+':xs) -> decInt xs
-             ('-':xs) -> negate $ decInt xs
-   where decInt xs = foldl (\x y -> 10*x + y) 0 (map digitToInt xs)
+             ('+':xs) -> read xs :: Int
+             ('-':xs) -> negate $ (read xs :: Int)
 
 -- do the sum in the IO monad
 

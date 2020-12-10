@@ -25,5 +25,4 @@ def main():
     print(f"There are {trees} trees.")
 
 
-if __name__ == "__main__":
-    main()
+main()

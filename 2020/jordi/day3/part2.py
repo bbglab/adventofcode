@@ -1,6 +1,6 @@
 def get_position(data, x, y):
     if y >= len(data) or x <= 0 or y <= 0:
-        raise ValueError("Outside the mapa")
+        raise ValueError("Outside the map")
     line = data[y]
     xm = x % len(line)
     return line[xm]
@@ -31,5 +31,4 @@ def main():
     print(f"There is a {total_trees} trees product.")
 
 
-if __name__ == "__main__":
-    main()
+main()

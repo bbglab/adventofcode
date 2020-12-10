@@ -25,7 +25,7 @@ def execute_program(instructions: List[Instruction]) -> ExecResult:
         visited.add(pos)
         pos, acc = execute_instruction(instructions[pos], pos, acc)
         if pos in visited:
-            # Stop execution if a loop is detected
+            # Stop execution when a loop is detected
             return ExecResult(pos, acc, True)
     return ExecResult(pos, acc, False)
 
@@ -53,5 +53,4 @@ def main():
     print("Part Two", result.acc)
 
 
-if __name__ == "__main__":
-    main()
+main()

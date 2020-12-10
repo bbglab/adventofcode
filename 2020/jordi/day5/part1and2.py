@@ -18,5 +18,4 @@ def main():
     print("Part Two:", first_empty_seat)
 
 
-if __name__ == '__main__':
-    main()
+main()

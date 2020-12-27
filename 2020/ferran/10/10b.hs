@@ -6,15 +6,13 @@ import Control.Arrow
 
 main = do
     str <- readFile "input.txt"
-    (lines >>> map (read :: String -> Int) >>> getBlueprint >>> dynamic [] >>> last >>> show >>> putStrLn) $ str
+    (lines >>> map (read :: String -> Int) >>> func >>> show >>> putStrLn) $ str
 
-getBlueprint :: [Int] -> [[Int]]
-getBlueprint xs = [map (\x -> fromEnum $ ((pivot - x >= 0) && (pivot - x <= 3))) ls | pivot <- ls] where
+-- "func" fills up an accumulator list using
+-- a blueprint that gives all the recurrence dependencies
+
+func :: [Int] -> [Int]
+func xs = foldl (\acc xs -> acc ++ [sum $ zipWith (*) acc xs]) [1] blueprint
+              where
+                  blueprint = tail [map (\x -> fromEnum $ ((pivot - x >= 0) && (pivot - x <= 3))) ls | pivot <- ls]
                   ls = (0: (sort xs)) ++ [(maximum xs) + 3]
-
--- dynamic programming following the blueprint
-
-dynamic :: [Int] -> [[Int]] -> [Int]
-dynamic [] (x:xs)  = dynamic [1] xs
-dynamic acc (x:xs) = dynamic (acc ++ [sum $ zipWith (*) x acc]) xs
-dynamic acc []     = acc

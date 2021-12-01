@@ -12,14 +12,11 @@ int main(){
     while(getline(input_file, line)) { lines.push_back(line); }
 
     int i = 0;
-    int j = 1;
-    int k = 2;
-
     vector<int> results;
-    while (k < lines.size()) {
-        int result = stoi(lines[i]) + stoi(lines[j]) + stoi(lines[k]);
+    while (i < lines.size() - 2) {
+        int result = stoi(lines[i]) + stoi(lines[i+1]) + stoi(lines[i+2]);
         results.push_back(result);
-        ++k; ++j; ++i;
+        ++i;
     }
 
     int count, last = 0;

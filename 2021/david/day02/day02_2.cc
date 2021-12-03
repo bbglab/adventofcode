@@ -33,7 +33,7 @@ int main(){
             horizontal_pos += value;
             depth += aim * value;
         }
-        else aim += (instructions[move] * value);
+        else aim += instructions[move] * value;
     }
 
     long long result = depth * horizontal_pos;

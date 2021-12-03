@@ -31,7 +31,7 @@ int main(){
 
         if (move == "forward")
             horizontal_pos += value;
-        else depth += (int(instructions[move]) * value);
+        else depth += instructions[move] * value);
     }
 
     long long result = depth * horizontal_pos;

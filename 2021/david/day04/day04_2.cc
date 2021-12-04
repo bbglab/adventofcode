@@ -7,7 +7,6 @@
 using namespace std;
 
 struct Player {
-    bool might_win;
     vector<vector<int>> board;
     vector<vector<bool>> marked_board;
 };

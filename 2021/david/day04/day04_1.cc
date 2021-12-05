@@ -10,7 +10,7 @@ struct Player {
     vector<vector<bool>> marked_board;
 };
 
-vector<int> splitByComma(string &line) {
+vector<int> split_line(string &line) {
     vector<int> out;
     stringstream ss(line);
 
@@ -19,15 +19,6 @@ vector<int> splitByComma(string &line) {
         if (ss.peek() == ',') ss.ignore();
     }
 
-    return out;
-}
-
-vector<int> splitBySpace(const string &line) {
-    vector<int> out;
-    stringstream ss(line);
-    for (int i; ss >> i;) {
-        out.push_back(i);
-    }
     return out;
 }
 
@@ -78,7 +69,7 @@ int main(){
 
     getline(input_file, line);
 
-    vector<int> draw_num = splitByComma(line);
+    vector<int> draw_num = split_line(line);
 
     getline(input_file, line);
 
@@ -90,7 +81,7 @@ int main(){
             players.push_back(usual_player);
             usual_player = Player();
         } else {
-            vector<int> row = splitByComma(line);
+            vector<int> row = split_line(line);
             usual_player.board.push_back(row);
 
             vector<bool> row_mark(row.size(), false);

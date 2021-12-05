@@ -15,7 +15,6 @@ vector<string> split_line(const string &line) {
 }
 
 int main(){
-
     map<string, int> instructions{{"up", -1}, {"down", 1}};
 
     string line;

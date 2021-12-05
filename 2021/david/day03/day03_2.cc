@@ -4,7 +4,7 @@
 #include <map>
 using namespace std;
 
-int binaryToDecimal(string &number) {
+int binary_to_decimal(string &number) {
     int result = 0;
 
     int base = 1;
@@ -84,6 +84,6 @@ int main(){
         }
     }
 
-    long life_support = binaryToDecimal(oxygen_gen[0]) * binaryToDecimal(co2_scrubber[0]);
+    long life_support = binary_to_decimal(oxygen_gen[0]) * binary_to_decimal(co2_scrubber[0]);
     cout << life_support << endl;
 }

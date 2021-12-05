@@ -4,7 +4,7 @@
 #include <map>
 using namespace std;
 
-int binaryToDecimal(string &number) {
+int binary_to_decimal(string &number) {
     int result = 0;
 
     int base = 1;
@@ -51,7 +51,7 @@ int main(){
         epsilon += to_string(c < 0);
     }
 
-    long consumption = binaryToDecimal(gamma) * binaryToDecimal(epsilon);
+    long consumption = binary_to_decimal(gamma) * binary_to_decimal(epsilon);
     cout << consumption << endl;
 
 

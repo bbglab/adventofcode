@@ -2,9 +2,6 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
-
-#include <numeric>
-#include <functional>
 using namespace std;
 
 vector<int> split_line_comma(string &line) {

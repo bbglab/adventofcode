@@ -2,6 +2,6 @@
 
 ```bash
 cd dayXX
-g++ dayXX dayXX.cc
+g++ -o dayXX dayXX.cc
 ./dayXX
 ```

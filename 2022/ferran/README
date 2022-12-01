@@ -1,0 +1,6 @@
+How to use get script:
+
+1) update env variable AOC_COOKIE with "session" cookie value from AoC website
+   $ export AOC_COOKIE=<cookie value>
+2) run get with "input" as argument --> will fetch the input and keep it in the "input" folder
+   $ bash get input
